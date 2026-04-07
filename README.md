@@ -1,6 +1,6 @@
 
 
-[cite_start]**Chanel CMS** is a high-end desktop Content Management System developed as part of the "Usability Engineering in Infrastructure Systems" course[cite: 1]. The application is designed to manage and showcase the most significant historical moments of the House of Chanel, from the opening of the first boutique to modern-day runway spectacles.
+**Chanel CMS** is a high-end desktop Content Management System developed as part of the "Usability Engineering in Infrastructure Systems" course[cite: 1]. The application is designed to manage and showcase the most significant historical moments of the House of Chanel, from the opening of the first boutique to modern-day runway spectacles.
 
 ## 📸 Preview
 Custom-designed interface featuring a minimalist luxury aesthetic with gold accents and a signature Coco Chanel watermark.*
