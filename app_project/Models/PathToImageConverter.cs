@@ -13,7 +13,12 @@ namespace app_project.Models
         {
             if (value is string path && !string.IsNullOrEmpty(path))
             {
-                string fullPath = Path.GetFullPath(path);
+                // Pokušaj relativnu putanju u odnosu na exe direktorij
+                string basePath = AppDomain.CurrentDomain.BaseDirectory;
+                string fullPath = Path.IsPathRooted(path)
+                    ? path
+                    : Path.GetFullPath(Path.Combine(basePath, path));
+
                 if (File.Exists(fullPath))
                 {
                     var bitmap = new BitmapImage();

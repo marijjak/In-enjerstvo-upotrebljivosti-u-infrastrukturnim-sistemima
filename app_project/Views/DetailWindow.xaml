@@ -146,8 +146,19 @@
                                     <Rectangle Height="1" Fill="#BFA181" Opacity="0.2" Width="260"/>
                                 </StackPanel>
                                 <!-- Description -->
+                                <!-- Description -->
                                 <TextBlock Text="DESCRIPTION" Style="{StaticResource DetailLabel}" Margin="0,0,0,10"/>
-                                <RichTextBox x:Name="DescriptionViewer" Background="Transparent" Foreground="#D4C5A9" BorderThickness="0" IsReadOnly="True" FontFamily="Georgia" FontSize="13" Padding="0" IsDocumentEnabled="True" Margin="0,0,0,28"/>
+                                <FlowDocumentScrollViewer x:Name="DescriptionViewer"
+    Background="Transparent"
+    BorderThickness="0"
+    Foreground="#D4C5A9"
+    FontFamily="Georgia"
+    FontSize="13"
+    VerticalScrollBarVisibility="Auto"
+    MaxHeight="200"
+    Margin="0,0,0,28">
+                                    <FlowDocument Background="Transparent" PagePadding="0"/>
+                                </FlowDocumentScrollViewer>
                             </StackPanel>
                         </Border>
                     </StackPanel>

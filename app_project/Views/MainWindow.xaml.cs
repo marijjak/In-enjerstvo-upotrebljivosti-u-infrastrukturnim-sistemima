@@ -59,11 +59,6 @@ namespace app_project.Views
             var selected = MomentsDataGrid.SelectedItems
                 .Cast<IconicMoment>().ToList();
 
-            // Uzmi i one oznacene CheckBoxom
-            var checkedRows = _moments
-                .Where(m => MomentsDataGrid.SelectedItems.Contains(m))
-                .ToList();
-
             if (selected.Count == 0)
             {
                 MessageBox.Show(
@@ -84,7 +79,6 @@ namespace app_project.Views
             {
                 foreach (var moment in selected)
                 {
-                    // Obrisi RTF fajl ako postoji
                     if (File.Exists(moment.RtfFilePath))
                         File.Delete(moment.RtfFilePath);
 

@@ -117,7 +117,7 @@ namespace app_project.Views
             textFactory.SetBinding(TextBlock.TextProperty,
                 new System.Windows.Data.Binding("Name"));
             textFactory.SetValue(TextBlock.ForegroundProperty,
-                new SolidColorBrush(Color.FromRgb(240, 230, 211)));
+     new SolidColorBrush(Color.FromRgb(0, 0, 0)));
 
             factory.AppendChild(rectFactory);
             factory.AppendChild(textFactory);
@@ -276,7 +276,28 @@ namespace app_project.Views
 
             if (dialog.ShowDialog() == true)
             {
-                string relativePath = GetRelativePath(dialog.FileName);
+                // Kopiraj sliku u Resources\Images unutar exe foldera
+                string imagesDir = Path.Combine(
+                    AppDomain.CurrentDomain.BaseDirectory, "Resources", "Images");
+                Directory.CreateDirectory(imagesDir);
+
+                string fileName = Path.GetFileName(dialog.FileName);
+                string destPath = Path.Combine(imagesDir, fileName);
+
+                // Ako vec postoji fajl s istim imenom, dodaj timestamp da izbjegnemo konflikt
+                if (File.Exists(destPath) && destPath != dialog.FileName)
+                {
+                    string nameNoExt = Path.GetFileNameWithoutExtension(fileName);
+                    string ext = Path.GetExtension(fileName);
+                    fileName = $"{nameNoExt}_{DateTime.Now:yyyyMMddHHmmss}{ext}";
+                    destPath = Path.Combine(imagesDir, fileName);
+                }
+
+                if (!File.Exists(destPath))
+                    File.Copy(dialog.FileName, destPath);
+
+                // Sačuvaj relativnu putanju
+                string relativePath = Path.Combine("Resources", "Images", fileName);
                 ImagePathTextBox.Text = relativePath;
 
                 ImagePreview.Source = new System.Windows.Media.Imaging
@@ -351,17 +372,24 @@ namespace app_project.Views
                 _existingMoment.Year = int.Parse(YearTextBox.Text);
                 _existingMoment.ImagePath = ImagePathTextBox.Text;
                 _existingMoment.RtfFilePath = rtfPath;
+                _existingMoment.Description = new TextRange(
+    DescriptionRichTextBox.Document.ContentStart,
+    DescriptionRichTextBox.Document.ContentEnd).Text.Trim();
             }
             else
             {
                 int newId = _moments.Count > 0
                     ? _moments.Max(m => m.Id) + 1 : 1;
 
+                var descText = new TextRange(
+                    DescriptionRichTextBox.Document.ContentStart,
+                    DescriptionRichTextBox.Document.ContentEnd).Text.Trim();
+
                 var moment = new IconicMoment(
                     newId,
                     TitleTextBox.Text.Trim(),
                     int.Parse(YearTextBox.Text),
-                    "",
+                    descText,
                     ImagePathTextBox.Text,
                     rtfPath,
                     DateTime.Now);

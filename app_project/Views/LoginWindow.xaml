@@ -238,10 +238,7 @@
                               Width="260" Margin="0,0,0,6">
                             <Rectangle Height="1" Fill="#BFA181" Opacity="0.6"/>
                         </Grid>
-                        <Grid HorizontalAlignment="Center"
-                              Width="260" Margin="0,2,0,0">
-                            <Rectangle Height="1" Fill="#BFA181" Opacity="0.2"/>
-                        </Grid>
+                       
 
                         <TextBlock Text="I C O N I C   M O M E N T S"
                                    FontFamily="Segoe UI"

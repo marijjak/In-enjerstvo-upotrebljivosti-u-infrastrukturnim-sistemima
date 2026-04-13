@@ -31,14 +31,20 @@ namespace app_project.Views
             }
 
             // RTF sadrzaj
+            // RTF sadrzaj
             if (File.Exists(moment.RtfFilePath))
             {
-                using var fs = new FileStream(
-                    moment.RtfFilePath, FileMode.Open);
-                var range = new TextRange(
-                    DescriptionViewer.Document.ContentStart,
-                    DescriptionViewer.Document.ContentEnd);
+                using var fs = new FileStream(moment.RtfFilePath, FileMode.Open);
+                var doc = new FlowDocument();
+                var range = new TextRange(doc.ContentStart, doc.ContentEnd);
                 range.Load(fs, DataFormats.Rtf);
+                doc.Background = System.Windows.Media.Brushes.Transparent;
+                doc.Foreground = new System.Windows.Media.SolidColorBrush(
+                    (System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#D4C5A9"));
+                doc.FontFamily = new System.Windows.Media.FontFamily("Georgia");
+                doc.FontSize = 13;
+                doc.PagePadding = new Thickness(0);
+                DescriptionViewer.Document = doc;
             }
         }
 
