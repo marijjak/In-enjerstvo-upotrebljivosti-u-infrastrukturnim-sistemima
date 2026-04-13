@@ -2,45 +2,44 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:app_project.Models"
-        Title="Chanel CMS — Iconic Moments"
-        Height="650" Width="950"
+        Title="CHANEL CMS"
+        Height="720" Width="1050"
         WindowStartupLocation="CenterScreen"
-        Background="#1a1a1a">
+        Background="#0f0f0f">
 
     <Window.Resources>
+
         <local:PathToImageConverter x:Key="PathToImageConverter"/>
-        <Style x:Key="HeaderText" TargetType="TextBlock">
-            <Setter Property="Foreground" Value="#BFA181"/>
+
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#eae4d6"/>
             <Setter Property="FontFamily" Value="Georgia"/>
-            <Setter Property="FontSize" Value="11"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
 
         <Style x:Key="GoldButton" TargetType="Button">
-            <Setter Property="Background" Value="#BFA181"/>
-            <Setter Property="Foreground" Value="#1a1a1a"/>
-            <Setter Property="FontFamily" Value="Georgia"/>
-            <Setter Property="FontSize" Value="12"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Height" Value="36"/>
+            <Setter Property="Background" Value="#d6c7a1"/>
+            <Setter Property="Foreground" Value="#000"/>
+            <Setter Property="Height" Value="38"/>
+            <Setter Property="Padding" Value="24,0"/>
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Padding" Value="20,0"/>
+            <Setter Property="FontFamily" Value="Georgia"/>
+            <Setter Property="FontSize" Value="11"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}"
-                                CornerRadius="2"
+                        <Border x:Name="Bd"
+                                Background="{TemplateBinding Background}"
                                 Padding="{TemplateBinding Padding}">
                             <ContentPresenter HorizontalAlignment="Center"
                                               VerticalAlignment="Center"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#BFA181"/>
+                                <Setter TargetName="Bd" Property="Background" Value="#c4b48e"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Background" Value="#b8904a"/>
+                                <Setter TargetName="Bd" Property="Background" Value="#b0a07a"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -50,28 +49,29 @@
 
         <Style x:Key="OutlineButton" TargetType="Button">
             <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Foreground" Value="#BFA181"/>
-            <Setter Property="FontFamily" Value="Georgia"/>
-            <Setter Property="FontSize" Value="12"/>
-            <Setter Property="Height" Value="36"/>
-            <Setter Property="BorderBrush" Value="#BFA181"/>
+            <Setter Property="BorderBrush" Value="#333"/>
             <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Foreground" Value="#aaa"/>
+            <Setter Property="Height" Value="38"/>
             <Setter Property="Padding" Value="20,0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FontFamily" Value="Georgia"/>
+            <Setter Property="FontSize" Value="11"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}"
+                        <Border x:Name="Bd"
+                                Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="2"
                                 Padding="{TemplateBinding Padding}">
                             <ContentPresenter HorizontalAlignment="Center"
                                               VerticalAlignment="Center"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#2a2a2a"/>
+                                <Setter TargetName="Bd" Property="Background" Value="#1a1a1a"/>
+                                <Setter TargetName="Bd" Property="BorderBrush" Value="#555"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -79,43 +79,42 @@
             </Setter>
         </Style>
 
-        <!-- DataGrid stil -->
         <Style TargetType="DataGrid">
-            <Setter Property="Background" Value="#1a1a1a"/>
-            <Setter Property="Foreground" Value="#f0e6d3"/>
+            <Setter Property="Background" Value="#0f0f0f"/>
             <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="GridLinesVisibility" Value="Horizontal"/>
-            <Setter Property="HorizontalGridLinesBrush" Value="#2a2a2a"/>
-            <Setter Property="RowBackground" Value="#1a1a1a"/>
-            <Setter Property="AlternatingRowBackground" Value="#222222"/>
+            <Setter Property="RowHeight" Value="80"/>
             <Setter Property="ColumnHeaderHeight" Value="40"/>
-            <Setter Property="RowHeight" Value="70"/>
-            <Setter Property="SelectionMode" Value="Single"/>
-            <Setter Property="SelectionUnit" Value="FullRow"/>
+            <Setter Property="GridLinesVisibility" Value="Horizontal"/>
+            <Setter Property="HorizontalGridLinesBrush" Value="#1a1a1a"/>
+            <Setter Property="Foreground" Value="#ddd"/>
             <Setter Property="AutoGenerateColumns" Value="False"/>
+            <Setter Property="SelectionMode" Value="Extended"/>
+            <Setter Property="SelectionUnit" Value="FullRow"/>
             <Setter Property="CanUserAddRows" Value="False"/>
             <Setter Property="CanUserDeleteRows" Value="False"/>
             <Setter Property="CanUserResizeRows" Value="False"/>
             <Setter Property="IsReadOnly" Value="True"/>
+            <Setter Property="HeadersVisibility" Value="Column"/>
         </Style>
 
         <Style TargetType="DataGridColumnHeader">
-            <Setter Property="Background" Value="#111111"/>
-            <Setter Property="Foreground" Value="#BFA181"/>
+            <Setter Property="Background" Value="#111"/>
+            <Setter Property="Foreground" Value="#555"/>
             <Setter Property="FontFamily" Value="Georgia"/>
-            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="FontSize" Value="10"/>
             <Setter Property="Padding" Value="12,0"/>
-            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+            <Setter Property="BorderBrush" Value="#222"/>
+            <Setter Property="Height" Value="40"/>
         </Style>
 
         <Style TargetType="DataGridCell">
             <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Padding" Value="8,4"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="DataGridCell">
-                        <Border Padding="{TemplateBinding Padding}"
-                                Background="{TemplateBinding Background}">
+                        <Border Background="{TemplateBinding Background}" Padding="0">
                             <ContentPresenter VerticalAlignment="Center"/>
                         </Border>
                     </ControlTemplate>
@@ -123,203 +122,226 @@
             </Setter>
             <Style.Triggers>
                 <Trigger Property="IsSelected" Value="True">
-                    <Setter Property="Background" Value="#2a2010"/>
-                    <Setter Property="Foreground" Value="#f0e6d3"/>
+                    <Setter Property="Background" Value="#2a2418"/>
+                    <Setter Property="Foreground" Value="#eae4d6"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="DataGridRow">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#1a1a1a"/>
+                </Trigger>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="#2a2418"/>
+                    <Setter Property="BorderBrush" Value="#d6c7a1"/>
+                    <Setter Property="BorderThickness" Value="2,0,0,0"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
 
     </Window.Resources>
 
-    <Grid>
+    <Grid Margin="20">
+
         <Grid.RowDefinitions>
-            <RowDefinition Height="70"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
 
-        <!-- Header -->
-        <Border Grid.Row="0" Background="#111111"
-                BorderBrush="#BFA181" BorderThickness="0,0,0,1">
-            <Grid Margin="24,0">
-                <StackPanel VerticalAlignment="Center">
-                    <TextBlock Text="CHANEL"
-                               FontFamily="Georgia" FontSize="22"
-                               FontWeight="Bold" Foreground="#BFA181"/>
-                    <TextBlock Text="I C O N I C  M O M E N T S"
-                               FontFamily="Segoe UI" FontSize="10"
-                               Foreground="#888"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal"
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Center">
-                    <TextBlock x:Name="UserInfoText"
-                               FontFamily="Georgia" FontSize="12"
-                               Foreground="#888" VerticalAlignment="Center"
-                               Margin="0,0,16,0"/>
-                    <Ellipse Width="8" Height="8" Fill="#BFA181"
-                             VerticalAlignment="Center"/>
-                </StackPanel>
-            </Grid>
-        </Border>
+        <Rectangle Grid.Row="0" Height="2" VerticalAlignment="Top" Panel.ZIndex="10">
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                    <GradientStop Color="Transparent" Offset="0"/>
+                    <GradientStop Color="#d6c7a1" Offset="0.5"/>
+                    <GradientStop Color="Transparent" Offset="1"/>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
 
-        <!-- Toolbar -->
-        <Border Grid.Row="1" Background="#161616"
-                BorderBrush="#2a2a2a" BorderThickness="0,0,0,1">
-            <Grid Margin="24,0">
-                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                    <CheckBox x:Name="SelectAllCheckBox"
-                              Content="Select all"
-                              Foreground="#888"
-                              FontFamily="Georgia"
-                              FontSize="12"
-                              VerticalAlignment="Center"
-                              Checked="SelectAllCheckBox_Checked"
-                              Unchecked="SelectAllCheckBox_Unchecked">
-                        <CheckBox.ToolTip>
-                            <ToolTip Content="Select / deselect all moments"/>
-                        </CheckBox.ToolTip>
-                    </CheckBox>
-                </StackPanel>
+        <!-- HEADER -->
+        <StackPanel Grid.Row="0" Margin="0,14,0,0">
+            <TextBlock Text="CONTENT MANAGEMENT SYSTEM"
+                       FontSize="10"
+                       Foreground="#444"/>
+            <TextBlock Text="C H A N E L"
+                       FontSize="28"
+                       FontWeight="Bold"
+                       Foreground="#d6c7a1"
+                       Margin="0,6,0,0"/>
+            <TextBlock Text="I C O N I C   M O M E N T S"
+                       FontSize="11"
+                       Foreground="#555"
+                       Margin="0,5,0,10"/>
+        </StackPanel>
+
+        <TextBlock x:Name="UserInfoText"
+                   Grid.Row="0"
+                   HorizontalAlignment="Right"
+                   VerticalAlignment="Center"
+                   Foreground="#555"
+                   FontSize="11"/>
+
+        <!-- TOOLBAR -->
+        <Grid Grid.Row="1" VerticalAlignment="Center">
+
+            <CheckBox x:Name="SelectAllCheckBox"
+                      Content="SELECT ALL"
+                      Foreground="#666"
+                      VerticalAlignment="Center"
+                      FontFamily="Georgia"
+                      FontSize="11"
+                      Cursor="Hand"
+                      ToolTip="Select / deselect all moments"
+                      Checked="SelectAllCheckBox_Checked"
+                      Unchecked="SelectAllCheckBox_Unchecked"/>
+
+            <!-- NOVO - SIGN OUT je van AdminButtonsPanel -->
+            <StackPanel Orientation="Horizontal"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center">
 
                 <StackPanel x:Name="AdminButtonsPanel"
-                            Orientation="Horizontal"
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Center">
-                    <Button x:Name="AddButton"
-                            Content="+ ADD MOMENT"
-                            Style="{StaticResource GoldButton}"
-                            Margin="0,0,8,0"
-                            Click="AddButton_Click">
-                        <Button.ToolTip>
-                            <ToolTip Content="Add a new iconic moment"/>
-                        </Button.ToolTip>
-                    </Button>
-                    <Button x:Name="DeleteButton"
-                            Content="DELETE"
-                            Style="{StaticResource OutlineButton}"
-                            Click="DeleteButton_Click">
-                        <Button.ToolTip>
-                            <ToolTip Content="Delete selected moments"/>
-                        </Button.ToolTip>
-                    </Button>
+                Orientation="Horizontal">
+
+                    <Button Content="+ ADD"
+                Style="{StaticResource GoldButton}"
+                Margin="0,0,10,0"
+                ToolTip="Add a new iconic moment"
+                Click="AddButton_Click"/>
+
+                    <Button Content="DELETE"
+                Style="{StaticResource OutlineButton}"
+                Margin="0,0,10,0"
+                ToolTip="Delete selected moments"
+                Click="DeleteButton_Click"/>
+
                 </StackPanel>
-            </Grid>
-        </Border>
 
-        <!-- DataGrid -->
-        <DataGrid x:Name="MomentsDataGrid"
-                  Grid.Row="2"
-                  Margin="24,16"
-                  ItemsSource="{Binding}">
-
-            <DataGrid.Columns>
-
-                <!-- Kolona 1: CheckBox -->
-                <DataGridTemplateColumn Width="50">
-                    <DataGridTemplateColumn.HeaderTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="" Style="{StaticResource HeaderText}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.HeaderTemplate>
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <CheckBox IsChecked="{Binding IsSelected,
-                                          RelativeSource={RelativeSource AncestorType=DataGridRow}}"
-                                      HorizontalAlignment="Center"
-                                      Cursor="Hand"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-
-                <!-- Kolona 2: Hyperlink (Title) -->
-                <DataGridTemplateColumn Header="TITLE" Width="200">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock>
-                                <Hyperlink Foreground="#c9a96e"
-                                           Click="TitleHyperlink_Click"
-                                           Tag="{Binding}">
-                                    <Run Text="{Binding Title}"/>
-                                </Hyperlink>
-                            </TextBlock>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-
-                <!-- Kolona 3: Slika -->
-                <DataGridTemplateColumn Header="IMAGE" Width="100">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Image Height="60" Width="80"
-                   Stretch="UniformToFill"
-                   Source="{Binding ImagePath,
-                       Converter={StaticResource PathToImageConverter}}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-
-                <!-- Kolona 4: Datum -->
-                <DataGridTemplateColumn Header="DATE ADDED" Width="160">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding DateAdded, StringFormat='{}{0:dd MMM yyyy}',
-                                       ConverterCulture='en-US'}"
-                                       Foreground="#888"
-                                       FontFamily="Georgia"
-                                       FontSize="12"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-
-                <!-- Kolona 5: Year -->
-                <DataGridTemplateColumn Header="YEAR" Width="80">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Year}"
-                                       Foreground="#888"
-                                       FontFamily="Georgia"
-                                       FontSize="12"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-
-            </DataGrid.Columns>
-        </DataGrid>
-
-        <!-- Footer -->
-        <Border Grid.Row="3" Background="#111111"
-                BorderBrush="#BFA181" BorderThickness="0,1,0,0">
-            <Grid Margin="24,0">
-                <TextBlock x:Name="StatusText"
-                           Text="Ready"
-                           Foreground="#555"
-                           FontFamily="Georgia"
-                           FontSize="11"
-                           VerticalAlignment="Center"/>
                 <Button Content="SIGN OUT"
-                        Style="{StaticResource OutlineButton}"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Center"
-                        Click="SignOutButton_Click">
-                    <Button.ToolTip>
-                        <ToolTip Content="Return to login screen"/>
-                    </Button.ToolTip>
-                </Button>
-   
-            </Grid>
-        </Border>
-        <Image Source="pack://application:,,,/Resources/Images/coco.png" 
-    Grid.Row="0" 
-    Grid.RowSpan="5"
-    Width="240" 
-    Opacity="0.7" 
-    HorizontalAlignment="Right" 
-    VerticalAlignment="Bottom" 
-    Margin="0,0,10,60" 
-    Stretch="Uniform" 
-    Panel.ZIndex="10" 
-    IsHitTestVisible="False"/>
+            Style="{StaticResource OutlineButton}"
+            Foreground="#d6c7a1"
+            BorderBrush="#d6c7a1"
+            ToolTip="Return to login screen"
+            Click="SignOutButton_Click"/>
+
+            </StackPanel>
+        </Grid>
+
+        <!-- MAIN -->
+        <Grid Grid.Row="2">
+
+            <DataGrid x:Name="MomentsDataGrid"
+                      ItemsSource="{Binding}">
+
+                <DataGrid.Columns>
+
+                    <DataGridTemplateColumn Width="50">
+                        <DataGridTemplateColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text=""/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.HeaderTemplate>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox IsChecked="{Binding IsSelected,
+                                              RelativeSource={RelativeSource AncestorType=DataGridRow}}"
+                                          HorizontalAlignment="Center"
+                                          Cursor="Hand"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Width="*">
+                        <DataGridTemplateColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="TITLE" Margin="10,0,0,0"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.HeaderTemplate>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="10,0">
+                                    <TextBlock FontSize="15" FontWeight="SemiBold">
+                                        <Hyperlink Click="TitleHyperlink_Click"
+                                                   Tag="{Binding}"
+                                                   Foreground="#d6c7a1">
+                                            <Run Text="{Binding Title}"/>
+                                        </Hyperlink>
+                                    </TextBlock>
+                                    <TextBlock Text="{Binding Year}"
+                                               FontSize="11"
+                                               Foreground="#555"
+                                               Margin="0,4,0,0"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Width="130">
+                        <DataGridTemplateColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="IMAGE" Margin="5,0,0,0"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.HeaderTemplate>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Border Width="100" Height="68"
+                                        Background="#111"
+                                        Margin="5,6">
+                                    <Image Stretch="UniformToFill"
+                                           Source="{Binding ImagePath,
+                                               Converter={StaticResource PathToImageConverter}}"/>
+                                </Border>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Width="180">
+                        <DataGridTemplateColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="DATE ADDED"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.HeaderTemplate>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding DateAdded,
+                                               StringFormat={}{0:dd MMM yyyy},
+                                               ConverterCulture=en-US}"
+                                           Foreground="#666"
+                                           FontSize="12"
+                                           VerticalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                </DataGrid.Columns>
+
+            </DataGrid>
+
+            <Image Source="pack://application:,,,/Resources/Images/coco.png"
+                   HorizontalAlignment="Right"
+                   VerticalAlignment="Bottom"
+                   Height="450"
+                   Opacity="0.4"
+                   Margin="0,0,190,0"
+                   Stretch="Uniform"
+                   IsHitTestVisible="False"
+                   Panel.ZIndex="0"/>
+
+        </Grid>
+
+        <!-- FOOTER -->
+        <TextBlock x:Name="StatusText"
+                   Grid.Row="3"
+                   Text="Ready"
+                   VerticalAlignment="Center"
+                   Foreground="#444"
+                   FontSize="11"/>
+
     </Grid>
 </Window>

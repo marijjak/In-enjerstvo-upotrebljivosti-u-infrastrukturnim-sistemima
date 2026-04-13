@@ -55,46 +55,46 @@ namespace app_project.Views
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
+{
+    var selected = MomentsDataGrid.SelectedItems
+        .Cast<IconicMoment>().ToList();
+
+    if (selected.Count == 0)
+    {
+        MessageBox.Show(
+            "Please select at least one moment to delete.",
+            "No Selection",
+            MessageBoxButton.OK,
+            MessageBoxImage.Information);
+        return;
+    }
+
+    var result = MessageBox.Show(
+        $"Are you sure you want to delete {selected.Count} moment(s)?",
+        "Confirm Deletion",
+        MessageBoxButton.YesNo,
+        MessageBoxImage.Warning);
+
+    if (result == MessageBoxResult.Yes)
+    {
+        foreach (var moment in selected)
         {
-            var selected = MomentsDataGrid.SelectedItems
-                .Cast<IconicMoment>().ToList();
+            if (File.Exists(moment.RtfFilePath))
+                File.Delete(moment.RtfFilePath);
 
-            if (selected.Count == 0)
-            {
-                MessageBox.Show(
-                    "Please select at least one moment to delete.",
-                    "No Selection",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Information);
-                return;
-            }
-
-            var result = MessageBox.Show(
-                $"Are you sure you want to delete {selected.Count} moment(s)?",
-                "Confirm Deletion",
-                MessageBoxButton.YesNo,
-                MessageBoxImage.Warning);
-
-            if (result == MessageBoxResult.Yes)
-            {
-                foreach (var moment in selected)
-                {
-                    if (File.Exists(moment.RtfFilePath))
-                        File.Delete(moment.RtfFilePath);
-
-                    _moments.Remove(moment);
-                }
-
-                XmlService.SaveMoments(_moments, _momentsFilePath);
-                RefreshGrid();
-
-                MessageBox.Show(
-                    "Moment(s) deleted successfully.",
-                    "Deleted",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Information);
-            }
+            _moments.Remove(moment);
         }
+
+        XmlService.SaveMoments(_moments, _momentsFilePath);
+        RefreshGrid();
+
+        MessageBox.Show(
+            "Moment(s) deleted successfully.",
+            "Deleted",
+            MessageBoxButton.OK,
+            MessageBoxImage.Information);
+    }
+}
 
         private void SignOutButton_Click(object sender, RoutedEventArgs e)
         {
