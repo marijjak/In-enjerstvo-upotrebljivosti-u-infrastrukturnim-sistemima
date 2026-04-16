@@ -39,9 +39,17 @@ namespace app_project.Views
                 PopulateFields();
             else
                 WindowTitleText.Text = "ADD ICONIC MOMENT";
+
+            // U edit modu ID nije editabilan (vec postoji)
+            if (_isEditMode)
+            {
+                IdTextBox.IsReadOnly = true;
+                IdTextBox.Opacity = 0.5;
+                IdTextBox.ToolTip = "ID cannot be changed after creation.";
+            }
         }
 
-        // ── Inicijalizacija editora ───────────────────────────
+        // ── Font families (sa preview fontova u ComboBox-u) ──────────────
 
         private void LoadFontFamilies()
         {
@@ -49,15 +57,21 @@ namespace app_project.Views
                 .OrderBy(f => f.Source)
                 .ToList();
 
+            // ItemTemplate koji prikazuje naziv fonta iscrtanog tim fontom (preview)
             var itemTemplate = new DataTemplate();
             var factory = new FrameworkElementFactory(typeof(TextBlock));
             factory.SetBinding(TextBlock.TextProperty,
                 new System.Windows.Data.Binding("Source"));
+            // Svaki font prikazan u svom stilu — to je "preview fontova"
             factory.SetBinding(TextBlock.FontFamilyProperty,
                 new System.Windows.Data.Binding("."));
             factory.SetValue(TextBlock.FontSizeProperty, 13.0);
+            // Svjetla boja za dark temu
             factory.SetValue(TextBlock.ForegroundProperty,
-                new SolidColorBrush(Color.FromRgb(30, 30, 30)));
+                new SolidColorBrush(Color.FromRgb(240, 230, 211))); // #f0e6d3
+            factory.SetValue(TextBlock.BackgroundProperty,
+                new SolidColorBrush(Color.FromRgb(42, 42, 42)));    // #2a2a2a
+            factory.SetValue(TextBlock.PaddingProperty, new Thickness(4, 2, 4, 2));
             itemTemplate.VisualTree = factory;
 
             FontFamilyComboBox.ItemTemplate = itemTemplate;
@@ -68,16 +82,16 @@ namespace app_project.Views
         private void LoadFontSizes()
         {
             var sizes = new List<double>
-        { 8, 9, 10, 11, 12, 14, 16, 18, 20, 22, 24, 28, 32, 36 };
+                { 8, 9, 10, 11, 12, 14, 16, 18, 20, 22, 24, 28, 32, 36 };
 
             var itemTemplate = new DataTemplate();
             var factory = new FrameworkElementFactory(typeof(TextBlock));
             factory.SetBinding(TextBlock.TextProperty,
                 new System.Windows.Data.Binding("."));
             factory.SetValue(TextBlock.ForegroundProperty,
-                new SolidColorBrush(Color.FromRgb(240, 230, 211))); // #f0e6d3
+                new SolidColorBrush(Color.FromRgb(240, 230, 211)));
             factory.SetValue(TextBlock.BackgroundProperty,
-                new SolidColorBrush(Color.FromRgb(42, 42, 42)));    // #2a2a2a
+                new SolidColorBrush(Color.FromRgb(42, 42, 42)));
             factory.SetValue(TextBlock.FontSizeProperty, 13.0);
             factory.SetValue(TextBlock.PaddingProperty, new Thickness(4, 2, 4, 2));
             itemTemplate.VisualTree = factory;
@@ -89,6 +103,7 @@ namespace app_project.Views
 
         private void LoadColors()
         {
+            // Sve sistemske boje
             var colors = typeof(Colors)
                 .GetProperties(BindingFlags.Public | BindingFlags.Static)
                 .Where(p => p.PropertyType == typeof(Color))
@@ -102,9 +117,10 @@ namespace app_project.Views
 
             TextColorComboBox.ItemsSource = colors;
 
+            // ItemTemplate: rectangle (boja) + naziv boje
             var itemTemplate = new DataTemplate();
-            var factory = new FrameworkElementFactory(typeof(StackPanel));
-            factory.SetValue(StackPanel.OrientationProperty, Orientation.Horizontal);
+            var panelFactory = new FrameworkElementFactory(typeof(StackPanel));
+            panelFactory.SetValue(StackPanel.OrientationProperty, Orientation.Horizontal);
 
             var rectFactory = new FrameworkElementFactory(typeof(System.Windows.Shapes.Rectangle));
             rectFactory.SetValue(WidthProperty, 16.0);
@@ -116,38 +132,40 @@ namespace app_project.Views
             var textFactory = new FrameworkElementFactory(typeof(TextBlock));
             textFactory.SetBinding(TextBlock.TextProperty,
                 new System.Windows.Data.Binding("Name"));
+            // Svjetla boja za dark temu
             textFactory.SetValue(TextBlock.ForegroundProperty,
-     new SolidColorBrush(Color.FromRgb(0, 0, 0)));
+                new SolidColorBrush(Color.FromRgb(240, 230, 211)));
+            textFactory.SetValue(TextBlock.BackgroundProperty,
+                new SolidColorBrush(Color.FromRgb(42, 42, 42)));
 
-            factory.AppendChild(rectFactory);
-            factory.AppendChild(textFactory);
-            itemTemplate.VisualTree = factory;
+            panelFactory.AppendChild(rectFactory);
+            panelFactory.AppendChild(textFactory);
+            itemTemplate.VisualTree = panelFactory;
             TextColorComboBox.ItemTemplate = itemTemplate;
 
             TextColorComboBox.SelectedIndex = 0;
         }
 
-        // ── Popuni polja pri izmeni ───────────────────────────
+        // ── Populate fields in edit mode ──────────────────────────────────
 
         private void PopulateFields()
         {
             WindowTitleText.Text = "EDIT ICONIC MOMENT";
-            TitleTextBox.Text = _existingMoment!.Title;
+            IdTextBox.Text = _existingMoment!.Id.ToString();
+            TitleTextBox.Text = _existingMoment.Title;
             YearTextBox.Text = _existingMoment.Year.ToString();
             ImagePathTextBox.Text = _existingMoment.ImagePath;
 
             if (File.Exists(_existingMoment.ImagePath))
             {
                 ImagePreview.Source = new System.Windows.Media.Imaging
-                    .BitmapImage(new Uri(
-                        Path.GetFullPath(_existingMoment.ImagePath)));
+                    .BitmapImage(new Uri(Path.GetFullPath(_existingMoment.ImagePath)));
                 ImagePreviewBorder.Visibility = Visibility.Visible;
             }
 
             if (File.Exists(_existingMoment.RtfFilePath))
             {
-                using var fs = new FileStream(
-                    _existingMoment.RtfFilePath, FileMode.Open);
+                using var fs = new FileStream(_existingMoment.RtfFilePath, FileMode.Open);
                 var range = new TextRange(
                     DescriptionRichTextBox.Document.ContentStart,
                     DescriptionRichTextBox.Document.ContentEnd);
@@ -155,7 +173,7 @@ namespace app_project.Views
             }
         }
 
-        // ── Editor toolbar eventi ─────────────────────────────
+        // ── Editor toolbar events ─────────────────────────────────────────
 
         private void BoldButton_Click(object sender, RoutedEventArgs e)
         {
@@ -220,7 +238,7 @@ namespace app_project.Views
             }
         }
 
-        // Azurira toolbar na osnovu selektovanog teksta
+        // Azurira toolbar buttons na osnovu selektovanog teksta (povratna info)
         private void DescriptionRichTextBox_SelectionChanged(object sender,
             RoutedEventArgs e)
         {
@@ -245,7 +263,7 @@ namespace app_project.Views
             _isUpdatingToolbar = false;
         }
 
-        // Broji rijeci
+        // Broj rijeci u status baru
         private void DescriptionRichTextBox_TextChanged(object sender,
             TextChangedEventArgs e)
         {
@@ -264,7 +282,7 @@ namespace app_project.Views
                 DescriptionError.Visibility = Visibility.Collapsed;
         }
 
-        // ── Browse slika ──────────────────────────────────────
+        // ── Browse image ──────────────────────────────────────────────────
 
         private void BrowseImageButton_Click(object sender, RoutedEventArgs e)
         {
@@ -276,7 +294,6 @@ namespace app_project.Views
 
             if (dialog.ShowDialog() == true)
             {
-                // Kopiraj sliku u Resources\Images unutar exe foldera
                 string imagesDir = Path.Combine(
                     AppDomain.CurrentDomain.BaseDirectory, "Resources", "Images");
                 Directory.CreateDirectory(imagesDir);
@@ -284,7 +301,6 @@ namespace app_project.Views
                 string fileName = Path.GetFileName(dialog.FileName);
                 string destPath = Path.Combine(imagesDir, fileName);
 
-                // Ako vec postoji fajl s istim imenom, dodaj timestamp da izbjegnemo konflikt
                 if (File.Exists(destPath) && destPath != dialog.FileName)
                 {
                     string nameNoExt = Path.GetFileNameWithoutExtension(fileName);
@@ -296,7 +312,6 @@ namespace app_project.Views
                 if (!File.Exists(destPath))
                     File.Copy(dialog.FileName, destPath);
 
-                // Sačuvaj relativnu putanju
                 string relativePath = Path.Combine("Resources", "Images", fileName);
                 ImagePathTextBox.Text = relativePath;
 
@@ -307,25 +322,50 @@ namespace app_project.Views
             }
         }
 
-        // ── Validacija ────────────────────────────────────────
+        // ── Real-time validacija (per polje) ──────────────────────────────
 
-        private void TitleTextBox_TextChanged(object sender,
-            TextChangedEventArgs e)
+        private void IdTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (!_isEditMode && int.TryParse(IdTextBox.Text, out int id) && id > 0)
+                IdError.Visibility = Visibility.Collapsed;
+        }
+
+        private void TitleTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (!string.IsNullOrWhiteSpace(TitleTextBox.Text))
                 TitleError.Visibility = Visibility.Collapsed;
         }
 
-        private void YearTextBox_TextChanged(object sender,
-            TextChangedEventArgs e)
+        private void YearTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (int.TryParse(YearTextBox.Text, out int y) && y > 0 && y <= 2025)
+            int currentYear = DateTime.Now.Year;
+            if (int.TryParse(YearTextBox.Text, out int y) && y >= 1800 && y <= currentYear)
                 YearError.Visibility = Visibility.Collapsed;
         }
+
+        // ── Validacija svih polja ─────────────────────────────────────────
 
         private bool ValidateFields()
         {
             bool valid = true;
+            int currentYear = DateTime.Now.Year;
+
+            // ID validacija (samo u add modu, u edit modu je readonly)
+            if (!_isEditMode)
+            {
+                if (!int.TryParse(IdTextBox.Text, out int id) || id <= 0)
+                {
+                    IdError.Text = "ID must be a positive integer (e.g. 1, 2, 3...).";
+                    IdError.Visibility = Visibility.Visible;
+                    valid = false;
+                }
+                else if (_moments.Any(m => m.Id == id))
+                {
+                    IdError.Text = $"ID {id} already exists. Please choose a unique ID.";
+                    IdError.Visibility = Visibility.Visible;
+                    valid = false;
+                }
+            }
 
             if (string.IsNullOrWhiteSpace(TitleTextBox.Text))
             {
@@ -334,8 +374,9 @@ namespace app_project.Views
             }
 
             if (!int.TryParse(YearTextBox.Text, out int year)
-                || year <= 0 || year > 2025)
+                || year < 1800 || year > currentYear)
             {
+                YearError.Text = $"Year must be a valid number between 1800 and {currentYear}.";
                 YearError.Visibility = Visibility.Visible;
                 valid = false;
             }
@@ -358,7 +399,7 @@ namespace app_project.Views
             return valid;
         }
 
-        // ── Sacuvaj ───────────────────────────────────────────
+        // ── Save ──────────────────────────────────────────────────────────
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
@@ -373,13 +414,12 @@ namespace app_project.Views
                 _existingMoment.ImagePath = ImagePathTextBox.Text;
                 _existingMoment.RtfFilePath = rtfPath;
                 _existingMoment.Description = new TextRange(
-    DescriptionRichTextBox.Document.ContentStart,
-    DescriptionRichTextBox.Document.ContentEnd).Text.Trim();
+                    DescriptionRichTextBox.Document.ContentStart,
+                    DescriptionRichTextBox.Document.ContentEnd).Text.Trim();
             }
             else
             {
-                int newId = _moments.Count > 0
-                    ? _moments.Max(m => m.Id) + 1 : 1;
+                int newId = int.Parse(IdTextBox.Text);
 
                 var descText = new TextRange(
                     DescriptionRichTextBox.Document.ContentStart,
@@ -416,15 +456,15 @@ namespace app_project.Views
             this.Close();
         }
 
-        // ── Helper metode ─────────────────────────────────────
+        // ── Helper ───────────────────────────────────────────────────────
 
         private string SaveRtfFile()
         {
             string rtfDir = Path.Combine("Resources", "Rtf");
             Directory.CreateDirectory(rtfDir);
 
-            string fileName = _isEditMode
-                ? Path.GetFileName(_existingMoment!.RtfFilePath)
+            string fileName = _isEditMode && !string.IsNullOrEmpty(_existingMoment!.RtfFilePath)
+                ? Path.GetFileName(_existingMoment.RtfFilePath)
                 : $"moment_{DateTime.Now:yyyyMMddHHmmss}.rtf";
 
             string fullPath = Path.Combine(rtfDir, fileName);
@@ -436,16 +476,6 @@ namespace app_project.Views
             range.Save(fs, DataFormats.Rtf);
 
             return fullPath;
-        }
-
-        private string GetRelativePath(string fullPath)
-        {
-            string basePath = AppDomain.CurrentDomain.BaseDirectory;
-            Uri baseUri = new Uri(basePath);
-            Uri fullUri = new Uri(fullPath);
-            Uri relativeUri = baseUri.MakeRelativeUri(fullUri);
-            return Uri.UnescapeDataString(relativeUri.ToString())
-                .Replace('/', Path.DirectorySeparatorChar);
         }
     }
 

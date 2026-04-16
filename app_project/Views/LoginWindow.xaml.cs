@@ -18,30 +18,48 @@ namespace app_project.Views
         {
             InitializeComponent();
             _users = XmlService.LoadUsers(_usersFilePath);
+
+            // Sakrij error poruke na pocetku
+            UsernameError.Visibility = Visibility.Collapsed;
+            PasswordError.Visibility = Visibility.Collapsed;
+            CredentialsError.Visibility = Visibility.Collapsed;
         }
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
+            // Resetuj sve greske
+            UsernameError.Visibility = Visibility.Collapsed;
+            PasswordError.Visibility = Visibility.Collapsed;
+            CredentialsError.Visibility = Visibility.Collapsed;
+
             string username = UsernameTextBox.Text.Trim();
             string password = PasswordBox.Password;
 
+            bool valid = true;
+
             if (string.IsNullOrEmpty(username))
             {
-                ShowError("Please enter your username.");
-                return;
+                UsernameError.Text = "Username is required.";
+                UsernameError.Visibility = Visibility.Visible;
+                valid = false;
             }
+
             if (string.IsNullOrEmpty(password))
             {
-                ShowError("Please enter your password.");
-                return;
+                PasswordError.Text = "Password is required.";
+                PasswordError.Visibility = Visibility.Visible;
+                valid = false;
             }
+
+            if (!valid) return;
 
             User found = _users.Find(u =>
                 u.Username == username && u.Password == password);
 
             if (found == null)
             {
-                ShowError("Incorrect username or password.");
+                CredentialsError.Text = "Incorrect username or password.";
+                CredentialsError.Visibility = Visibility.Visible;
                 return;
             }
 
@@ -56,12 +74,6 @@ namespace app_project.Views
             Application.Current.Shutdown();
         }
 
-        private void ShowError(string message)
-        {
-            ErrorTextBlock.Text = message;
-            ErrorTextBlock.Visibility = Visibility.Visible;
-        }
-
         private void TitleBar_MouseLeftButtonDown(object sender,
             System.Windows.Input.MouseButtonEventArgs e)
         {
@@ -71,6 +83,21 @@ namespace app_project.Views
         private void WindowCloseButton_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
+        }
+
+        // Ocisti gresku cim korisnik pocne pisati
+        private void UsernameTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(UsernameTextBox.Text))
+                UsernameError.Visibility = Visibility.Collapsed;
+            CredentialsError.Visibility = Visibility.Collapsed;
+        }
+
+        private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(PasswordBox.Password))
+                PasswordError.Visibility = Visibility.Collapsed;
+            CredentialsError.Visibility = Visibility.Collapsed;
         }
     }
 }
