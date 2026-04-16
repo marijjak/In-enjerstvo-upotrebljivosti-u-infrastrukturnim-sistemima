@@ -14,9 +14,7 @@ using System.Windows.Shapes;
 
 namespace app_project.Data
 {
-    /// <summary>
-    /// Interaction logic for moments.xaml
-    /// </summary>
+   
     public partial class moments : Window
     {
         public moments()

@@ -22,7 +22,7 @@ namespace app_project.Views
             DateValue.Text = moment.DateAdded.ToString("dd MMMM yyyy",
       System.Globalization.CultureInfo.InvariantCulture);
 
-            // Slika
+           
             if (File.Exists(moment.ImagePath))
             {
                 MomentImage.Source = new System.Windows.Media.Imaging
@@ -30,8 +30,7 @@ namespace app_project.Views
                         Path.GetFullPath(moment.ImagePath)));
             }
 
-            // RTF sadrzaj
-            // RTF sadrzaj
+           
             if (File.Exists(moment.RtfFilePath))
             {
                 using var fs = new FileStream(moment.RtfFilePath, FileMode.Open);

@@ -13,7 +13,7 @@ namespace app_project.Models
         {
             if (value is string path && !string.IsNullOrEmpty(path))
             {
-                // Pokušaj relativnu putanju u odnosu na exe direktorij
+               
                 string basePath = AppDomain.CurrentDomain.BaseDirectory;
                 string fullPath = Path.IsPathRooted(path)
                     ? path

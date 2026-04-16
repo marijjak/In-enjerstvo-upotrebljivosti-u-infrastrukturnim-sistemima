@@ -19,7 +19,7 @@ namespace app_project.Views
             InitializeComponent();
             _users = XmlService.LoadUsers(_usersFilePath);
 
-            // Sakrij error poruke na pocetku
+           
             UsernameError.Visibility = Visibility.Collapsed;
             PasswordError.Visibility = Visibility.Collapsed;
             CredentialsError.Visibility = Visibility.Collapsed;
@@ -27,7 +27,7 @@ namespace app_project.Views
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            // Resetuj sve greske
+            
             UsernameError.Visibility = Visibility.Collapsed;
             PasswordError.Visibility = Visibility.Collapsed;
             CredentialsError.Visibility = Visibility.Collapsed;
@@ -85,7 +85,7 @@ namespace app_project.Views
             Application.Current.Shutdown();
         }
 
-        // Ocisti gresku cim korisnik pocne pisati
+        
         private void UsernameTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (!string.IsNullOrEmpty(UsernameTextBox.Text))

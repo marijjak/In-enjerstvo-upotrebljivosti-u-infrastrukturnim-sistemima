@@ -121,7 +121,7 @@
     <ScrollViewer VerticalScrollBarVisibility="Auto">
         <StackPanel Margin="32,24">
 
-            <!-- Window title -->
+            
             <TextBlock x:Name="WindowTitleText"
                        Text="ADD ICONIC MOMENT"
                        FontFamily="Georgia" FontSize="18"
@@ -129,7 +129,7 @@
                        Margin="0,0,0,4"/>
             <Rectangle Height="1" Fill="#BFA181" Opacity="0.3" Margin="0,0,0,24"/>
 
-            <!-- ID  (korisnik mora unijeti) -->
+            
             <TextBlock Text="ID" Style="{StaticResource FieldLabel}"/>
             <TextBox x:Name="IdTextBox" Style="{StaticResource InputBox}"
                      Margin="0,0,0,2"
@@ -138,7 +138,7 @@
             <TextBlock x:Name="IdError" Style="{StaticResource ErrorLabel}"
                        Text="ID is required and must be a positive integer."/>
 
-            <!-- TITLE -->
+            
             <TextBlock Text="TITLE" Style="{StaticResource FieldLabel}"/>
             <TextBox x:Name="TitleTextBox" Style="{StaticResource InputBox}"
                      Margin="0,0,0,2"
@@ -147,7 +147,7 @@
             <TextBlock x:Name="TitleError" Style="{StaticResource ErrorLabel}"
                        Text="Title is required."/>
 
-            <!-- YEAR -->
+            
             <TextBlock Text="YEAR" Style="{StaticResource FieldLabel}"/>
             <TextBox x:Name="YearTextBox" Style="{StaticResource InputBox}"
                      Margin="0,0,0,2"
@@ -156,7 +156,7 @@
             <TextBlock x:Name="YearError" Style="{StaticResource ErrorLabel}"
                        Text="Year must be a valid number between 1800 and the current year."/>
 
-            <!-- IMAGE -->
+            
             <TextBlock Text="IMAGE" Style="{StaticResource FieldLabel}"/>
             <Grid Margin="0,0,0,2">
                 <Grid.ColumnDefinitions>
@@ -178,7 +178,7 @@
             <TextBlock x:Name="ImageError" Style="{StaticResource ErrorLabel}"
                        Text="Please select an image file."/>
 
-            <!-- Image Preview -->
+            
             <Border x:Name="ImagePreviewBorder"
                     Background="#2a2a2a" BorderBrush="#333"
                     BorderThickness="1" Height="120"
@@ -186,14 +186,14 @@
                 <Image x:Name="ImagePreview" Stretch="Uniform" Margin="4"/>
             </Border>
 
-            <!-- DESCRIPTION (RichTextBox editor) -->
+            
             <TextBlock Text="DESCRIPTION" Style="{StaticResource FieldLabel}"/>
 
-            <!-- Editor toolbar -->
+            
             <Border Background="#222" BorderBrush="#333" BorderThickness="1,1,1,0" Padding="6">
                 <WrapPanel>
 
-                    <!-- Bold -->
+                    
                     <ToggleButton x:Name="BoldButton"
                                   Style="{StaticResource EditorToggleButton}"
                                   Margin="2" Click="BoldButton_Click"
@@ -201,7 +201,7 @@
                         <TextBlock Text="B" FontWeight="Bold" FontSize="13"/>
                     </ToggleButton>
 
-                    <!-- Italic -->
+                    
                     <ToggleButton x:Name="ItalicButton"
                                   Style="{StaticResource EditorToggleButton}"
                                   Margin="2" Click="ItalicButton_Click"
@@ -209,7 +209,7 @@
                         <TextBlock Text="I" FontStyle="Italic" FontSize="13"/>
                     </ToggleButton>
 
-                    <!-- Underline -->
+                  
                     <ToggleButton x:Name="UnderlineButton"
                                   Style="{StaticResource EditorToggleButton}"
                                   Margin="2" Click="UnderlineButton_Click"
@@ -223,7 +223,7 @@
 
                     <Separator Background="#444" Width="1" Margin="6,2"/>
 
-                    <!-- Font Family (sa preview fontova) -->
+                 
                     <ComboBox x:Name="FontFamilyComboBox"
                               Width="140" Height="28" Margin="2"
                               Background="#2a2a2a" Foreground="#f0e6d3"
@@ -231,7 +231,7 @@
                               SelectionChanged="FontFamilyComboBox_SelectionChanged"
                               ToolTip="Font family"/>
 
-                    <!-- Font Size -->
+                    
                     <ComboBox x:Name="FontSizeComboBox"
                               Width="60" Height="28" Margin="2"
                               Background="#2a2a2a" Foreground="#f0e6d3"
@@ -241,7 +241,7 @@
 
                     <Separator Background="#444" Width="1" Margin="6,2"/>
 
-                    <!-- Text Color (sa color rectangle preview) -->
+                    
                     <ComboBox x:Name="TextColorComboBox"
                               Width="130" Height="28" Margin="2"
                               Background="#2a2a2a" Foreground="#f0e6d3"
@@ -251,7 +251,7 @@
                 </WrapPanel>
             </Border>
 
-            <!-- RichTextBox -->
+           
             <RichTextBox x:Name="DescriptionRichTextBox"
                          Height="160"
                          Background="#2a2a2a" Foreground="#f0e6d3"
@@ -261,7 +261,7 @@
                          TextChanged="DescriptionRichTextBox_TextChanged"
                          ToolTip="Write the description in this rich text editor"/>
 
-            <!-- Status bar - word count -->
+            
             <Border Background="#222" BorderBrush="#333" BorderThickness="1,0,1,1"
                     Padding="8,4" Margin="0,0,0,2">
                 <TextBlock x:Name="WordCountText"
@@ -272,7 +272,7 @@
                        Style="{StaticResource ErrorLabel}"
                        Text="Description is required."/>
 
-            <!-- Buttons -->
+            
             <Grid Margin="0,16,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>

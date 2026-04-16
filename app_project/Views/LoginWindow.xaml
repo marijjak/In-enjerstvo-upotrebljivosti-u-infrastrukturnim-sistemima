@@ -177,7 +177,7 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <!-- Custom title bar -->
+                    
                     <Border Grid.Row="0"
                             Background="#050505"
                             BorderBrush="#1C1C1C"
@@ -194,7 +194,7 @@
                         </Grid>
                     </Border>
 
-                    <!-- Form content -->
+                    
                     <StackPanel Grid.Row="1" VerticalAlignment="Center" Margin="58,0">
 
                         <StackPanel HorizontalAlignment="Center" Margin="0,0,0,28">
@@ -226,34 +226,34 @@
                                    HorizontalAlignment="Center" Opacity="0.5"
                                    Margin="0,10,0,36"/>
 
-                        <!-- USERNAME -->
+                        
                         <TextBlock Text="U S E R N A M E" Style="{StaticResource LabelStyle}"/>
                         <TextBox x:Name="UsernameTextBox"
                                  Style="{StaticResource InputStyle}"
                                  Margin="0,0,0,2"
                                  TextChanged="UsernameTextBox_TextChanged"
                                  ToolTip="Enter your username"/>
-                        <!-- Per-field error za username -->
+                        
                         <TextBlock x:Name="UsernameError"
                                    Style="{StaticResource FieldError}"/>
 
-                        <!-- PASSWORD -->
+                        
                         <TextBlock Text="P A S S W O R D" Style="{StaticResource LabelStyle}"/>
                         <PasswordBox x:Name="PasswordBox"
                                      Style="{StaticResource InputStyle}"
                                      Margin="0,0,0,2"
                                      PasswordChanged="PasswordBox_PasswordChanged"
                                      ToolTip="Enter your password"/>
-                        <!-- Per-field error za password -->
+                        
                         <TextBlock x:Name="PasswordError"
                                    Style="{StaticResource FieldError}"/>
 
-                        <!-- General credentials error -->
+                        
                         <TextBlock x:Name="CredentialsError"
                                    Style="{StaticResource FieldError}"
                                    Margin="0,0,0,12"/>
 
-                        <!-- Buttons -->
+                       
                         <Button x:Name="LoginButton"
                                 Content="S I G N   I N"
                                 Style="{StaticResource PrimaryButton}"

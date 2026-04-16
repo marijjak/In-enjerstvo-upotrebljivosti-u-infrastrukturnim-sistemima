@@ -164,7 +164,7 @@
             </Rectangle.Fill>
         </Rectangle>
 
-        <!-- HEADER -->
+        
         <StackPanel Grid.Row="0" Margin="0,14,0,0">
             <TextBlock Text="CONTENT MANAGEMENT SYSTEM"
                        FontSize="10"
@@ -187,7 +187,7 @@
                    Foreground="#555"
                    FontSize="11"/>
 
-        <!-- TOOLBAR -->
+        
         <Grid Grid.Row="1" VerticalAlignment="Center">
 
             <CheckBox x:Name="SelectAllCheckBox"
@@ -201,7 +201,7 @@
                       Checked="SelectAllCheckBox_Checked"
                       Unchecked="SelectAllCheckBox_Unchecked"/>
 
-            <!-- NOVO - SIGN OUT je van AdminButtonsPanel -->
+            
             <StackPanel Orientation="Horizontal"
             HorizontalAlignment="Right"
             VerticalAlignment="Center">
@@ -233,7 +233,7 @@
             </StackPanel>
         </Grid>
 
-        <!-- MAIN -->
+        
         <Grid Grid.Row="2">
 
             <DataGrid x:Name="MomentsDataGrid"
@@ -335,7 +335,7 @@
 
         </Grid>
 
-        <!-- FOOTER -->
+       
         <TextBlock x:Name="StatusText"
                    Grid.Row="3"
                    Text="Ready"

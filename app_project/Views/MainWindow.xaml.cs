@@ -44,7 +44,7 @@ namespace app_project.Views
             }
         }
 
-        // ── Toolbar dugmad ────────────────────────────────────
+      
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
@@ -104,7 +104,7 @@ namespace app_project.Views
             this.Close();
         }
 
-        // ── Hyperlink klik ────────────────────────────────────
+        
 
         private void TitleHyperlink_Click(object sender, RoutedEventArgs e)
         {
@@ -127,7 +127,7 @@ namespace app_project.Views
             }
         }
 
-        // ── Select All CheckBox ───────────────────────────────
+        
 
         private void SelectAllCheckBox_Checked(object sender, RoutedEventArgs e)
         {
@@ -139,7 +139,7 @@ namespace app_project.Views
             MomentsDataGrid.UnselectAll();
         }
 
-        // ── Helper ────────────────────────────────────────────
+       
 
         private void RefreshGrid()
         {

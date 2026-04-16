@@ -7,7 +7,7 @@ namespace app_project.Services
 {
     public static class XmlService
     {
-        // ── Users ──────────────────────────────────────────────
+        
 
         public static List<User> LoadUsers(string filePath)
         {
@@ -37,7 +37,7 @@ namespace app_project.Services
             serializer.Serialize(writer, users);
         }
 
-        // ── Moments ────────────────────────────────────────────
+        
 
         public static List<IconicMoment> LoadMoments(string filePath)
         {
@@ -59,7 +59,7 @@ namespace app_project.Services
             serializer.Serialize(writer, moments);
         }
 
-        // ── Helper ─────────────────────────────────────────────
+       
 
         private static void EnsureDirectory(string filePath)
         {

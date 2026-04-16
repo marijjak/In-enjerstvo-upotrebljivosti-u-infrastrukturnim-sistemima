@@ -40,7 +40,7 @@ namespace app_project.Views
             else
                 WindowTitleText.Text = "ADD ICONIC MOMENT";
 
-            // U edit modu ID nije editabilan (vec postoji)
+            
             if (_isEditMode)
             {
                 IdTextBox.IsReadOnly = true;
@@ -49,7 +49,7 @@ namespace app_project.Views
             }
         }
 
-        // ── Font families (sa preview fontova u ComboBox-u) ──────────────
+        
 
         private void LoadFontFamilies()
         {
@@ -57,20 +57,20 @@ namespace app_project.Views
                 .OrderBy(f => f.Source)
                 .ToList();
 
-            // ItemTemplate koji prikazuje naziv fonta iscrtanog tim fontom (preview)
+           
             var itemTemplate = new DataTemplate();
             var factory = new FrameworkElementFactory(typeof(TextBlock));
             factory.SetBinding(TextBlock.TextProperty,
                 new System.Windows.Data.Binding("Source"));
-            // Svaki font prikazan u svom stilu — to je "preview fontova"
+           
             factory.SetBinding(TextBlock.FontFamilyProperty,
                 new System.Windows.Data.Binding("."));
             factory.SetValue(TextBlock.FontSizeProperty, 13.0);
-            // Svjetla boja za dark temu
+            
             factory.SetValue(TextBlock.ForegroundProperty,
-                new SolidColorBrush(Color.FromRgb(240, 230, 211))); // #f0e6d3
+                new SolidColorBrush(Color.FromRgb(240, 230, 211))); 
             factory.SetValue(TextBlock.BackgroundProperty,
-                new SolidColorBrush(Color.FromRgb(42, 42, 42)));    // #2a2a2a
+                new SolidColorBrush(Color.FromRgb(42, 42, 42)));    
             factory.SetValue(TextBlock.PaddingProperty, new Thickness(4, 2, 4, 2));
             itemTemplate.VisualTree = factory;
 
@@ -103,7 +103,7 @@ namespace app_project.Views
 
         private void LoadColors()
         {
-            // Sve sistemske boje
+            
             var colors = typeof(Colors)
                 .GetProperties(BindingFlags.Public | BindingFlags.Static)
                 .Where(p => p.PropertyType == typeof(Color))
@@ -117,7 +117,6 @@ namespace app_project.Views
 
             TextColorComboBox.ItemsSource = colors;
 
-            // ItemTemplate: rectangle (boja) + naziv boje
             var itemTemplate = new DataTemplate();
             var panelFactory = new FrameworkElementFactory(typeof(StackPanel));
             panelFactory.SetValue(StackPanel.OrientationProperty, Orientation.Horizontal);
@@ -132,7 +131,7 @@ namespace app_project.Views
             var textFactory = new FrameworkElementFactory(typeof(TextBlock));
             textFactory.SetBinding(TextBlock.TextProperty,
                 new System.Windows.Data.Binding("Name"));
-            // Svjetla boja za dark temu
+            
             textFactory.SetValue(TextBlock.ForegroundProperty,
                 new SolidColorBrush(Color.FromRgb(240, 230, 211)));
             textFactory.SetValue(TextBlock.BackgroundProperty,
@@ -146,7 +145,7 @@ namespace app_project.Views
             TextColorComboBox.SelectedIndex = 0;
         }
 
-        // ── Populate fields in edit mode ──────────────────────────────────
+      
 
         private void PopulateFields()
         {
@@ -173,7 +172,6 @@ namespace app_project.Views
             }
         }
 
-        // ── Editor toolbar events ─────────────────────────────────────────
 
         private void BoldButton_Click(object sender, RoutedEventArgs e)
         {
@@ -238,7 +236,7 @@ namespace app_project.Views
             }
         }
 
-        // Azurira toolbar buttons na osnovu selektovanog teksta (povratna info)
+        
         private void DescriptionRichTextBox_SelectionChanged(object sender,
             RoutedEventArgs e)
         {
@@ -263,7 +261,7 @@ namespace app_project.Views
             _isUpdatingToolbar = false;
         }
 
-        // Broj rijeci u status baru
+        
         private void DescriptionRichTextBox_TextChanged(object sender,
             TextChangedEventArgs e)
         {
@@ -282,7 +280,7 @@ namespace app_project.Views
                 DescriptionError.Visibility = Visibility.Collapsed;
         }
 
-        // ── Browse image ──────────────────────────────────────────────────
+      
 
         private void BrowseImageButton_Click(object sender, RoutedEventArgs e)
         {
@@ -322,7 +320,7 @@ namespace app_project.Views
             }
         }
 
-        // ── Real-time validacija (per polje) ──────────────────────────────
+        
 
         private void IdTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -343,14 +341,14 @@ namespace app_project.Views
                 YearError.Visibility = Visibility.Collapsed;
         }
 
-        // ── Validacija svih polja ─────────────────────────────────────────
+        
 
         private bool ValidateFields()
         {
             bool valid = true;
             int currentYear = DateTime.Now.Year;
 
-            // ID validacija (samo u add modu, u edit modu je readonly)
+            
             if (!_isEditMode)
             {
                 if (!int.TryParse(IdTextBox.Text, out int id) || id <= 0)
@@ -399,7 +397,7 @@ namespace app_project.Views
             return valid;
         }
 
-        // ── Save ──────────────────────────────────────────────────────────
+        
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
@@ -456,7 +454,7 @@ namespace app_project.Views
             this.Close();
         }
 
-        // ── Helper ───────────────────────────────────────────────────────
+       
 
         private string SaveRtfFile()
         {
@@ -479,7 +477,7 @@ namespace app_project.Views
         }
     }
 
-    // Helper klasa za prikaz boja
+    
     public class ColorItem
     {
         public string Name { get; set; } = string.Empty;
